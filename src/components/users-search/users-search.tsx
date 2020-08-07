@@ -1,9 +1,12 @@
-import React, {
-    ChangeEvent,
-    ReactElement,
-    useState,
-} from 'react';
-import {Button, Card, CardContent, TextField} from '@material-ui/core';
+import React, {ChangeEvent, ReactElement, useState} from 'react';
+import {
+    Button,
+    Card,
+    CardContent,
+    CircularProgress,
+    TextField,
+    Typography,
+} from '@material-ui/core';
 import styles from './users-search.module.scss';
 import {connect} from 'react-redux';
 import {UsersActionTypes} from '../../redux/users/action-types';
@@ -11,16 +14,14 @@ import {bindActionCreators} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {RootState} from '../../redux/store';
 import {fetchUsers} from '../../redux/users/actions';
-import {UserInterface} from '../../interfaces/user.interface';
 import UsersList from '../users-list/users-list';
-export interface UsersSearchProps {
-    users: UserInterface[];
-    isUsersLoading: boolean;
-    usersError: string;
-    fetchUsers: typeof fetchUsers;
-}
+import {UsersSearchProps} from './users-search.interface';
 
-export const UsersSearch = ({fetchUsers: fetchUsersAction, users, isUsersLoading, usersError}: UsersSearchProps): ReactElement => {
+export const UsersSearch = ({
+    fetchUsers: fetchUsersAction,
+    isUsersLoading,
+    usersError,
+}: UsersSearchProps): ReactElement => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const handleValueChange = ({
@@ -29,7 +30,7 @@ export const UsersSearch = ({fetchUsers: fetchUsersAction, users, isUsersLoading
 
     const searchRepos = async (): Promise<void> => {
         fetchUsersAction(searchValue);
-    }
+    };
 
     return (
         <Card>
@@ -44,6 +45,7 @@ export const UsersSearch = ({fetchUsers: fetchUsersAction, users, isUsersLoading
                         variant={'outlined'}
                     />
                     <Button
+                        disabled={!searchValue || isUsersLoading}
                         onClick={searchRepos}
                         className={styles.searchButton}
                         variant={'contained'}
@@ -52,17 +54,23 @@ export const UsersSearch = ({fetchUsers: fetchUsersAction, users, isUsersLoading
                         Search
                     </Button>
                 </div>
-                {!!users?.length && <UsersList/>}
+                <div className={styles.innerCardContent}>
+                    {!isUsersLoading && !usersError && <UsersList/>}
+                    {!isUsersLoading && usersError && (
+                        <Typography color={'error'}>{usersError}</Typography>
+                    )}
+                    {isUsersLoading && <CircularProgress />}
+                </div>
             </CardContent>
         </Card>
     );
 };
 
-const mapStateToProps =({users}: RootState) => ({
+const mapStateToProps = ({users}: RootState) => ({
     users: users.users,
     isUsersLoading: users.isUsersLoading,
-    usersError: users.usersError
-})
+    usersError: users.usersError,
+});
 const mapDispatchToProps = (
     dispatch: ThunkDispatch<RootState, void, UsersActionTypes>
 ) => ({

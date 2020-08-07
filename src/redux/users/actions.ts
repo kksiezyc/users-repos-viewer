@@ -24,8 +24,14 @@ export const fetchUsers = (
             `${apiConfig.API_URL}/${ApiEndpointsEnum.SEARCH_USERS}?q=${searchValue}`
         );
 
-        dispatch(setUsers(response.data.items));
-        dispatch(toggleUsersLoading(false));
+        const users = response.data.items;
+        if (users?.length) {
+            dispatch(setUsers(response.data.items));
+            dispatch(toggleUsersLoading(false));
+        } else {
+            dispatch(setUsersError('No results. Please narrow your parameters.'));
+            dispatch(toggleUsersLoading(false));
+        }
     } catch (e) {
         dispatch(setUsersError('Something went wrong, try again'));
         dispatch(toggleUsersLoading(false));

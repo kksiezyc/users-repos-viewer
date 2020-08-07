@@ -15,13 +15,16 @@ export const UsersList = ({
     fetchRepos: fetchReposAction,
     isReposLoading,
     reposError,
-    repos,
+    repos
 }: UsersListProps): ReactElement => {
     const [expandedUserId, setExpandedUserId] = useState<number>(0);
-    const handleExpanded = useCallback(({id, repos_url}: UserInterface): void => {
-        fetchReposAction(repos_url);
-        setExpandedUserId(id);
-    }, []);
+    const handleExpanded = useCallback(
+        ({id, repos_url}: UserInterface): void => {
+            fetchReposAction(repos_url);
+            setExpandedUserId(id);
+        },
+        []
+    );
     const emptyRepos = useMemo((): [] => [], []);
 
     return (
@@ -33,7 +36,9 @@ export const UsersList = ({
                         <UserItem
                             repos={componentToUpdate ? repos : emptyRepos}
                             reposError={componentToUpdate ? reposError : ''}
-                            isReposLoading={componentToUpdate && isReposLoading}
+                            isReposLoading={
+                                componentToUpdate && isReposLoading
+                            }
                             key={user.id}
                             user={user}
                             isExpanded={componentToUpdate}

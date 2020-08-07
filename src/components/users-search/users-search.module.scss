@@ -1,16 +1,28 @@
 @import 'src/styles/global';
+$card-content-height: normalize(400);
+$card-searchbox-height: normalize(120);
 .cardContent {
-  height: normalize(400);
-  width: normalize(400);
+    height: $card-content-height;
+    width: $card-content-height;
 }
+
 .searchBox {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    height: $card-searchbox-height;
+}
+
+.innerCardContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - #{$card-searchbox-height});
 }
 
 .searchResults {
-  overflow: scroll;
+    overflow: scroll;
 }
+
 .searchButton {
-  margin-top: normalize(20) !important;
+    margin-top: normalize(20) !important;
 }
