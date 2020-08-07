@@ -1,0 +1,16 @@
+@import 'src/styles/global';
+.cardContent {
+  height: normalize(400);
+  width: normalize(400);
+}
+.searchBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchResults {
+  overflow: scroll;
+}
+.searchButton {
+  margin-top: normalize(20) !important;
+}
