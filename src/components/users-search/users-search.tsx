@@ -55,7 +55,7 @@ export const UsersSearch = ({
                     </Button>
                 </div>
                 <div className={styles.innerCardContent}>
-                    {!isUsersLoading && !usersError && <UsersList/>}
+                    {!isUsersLoading && !usersError && <UsersList />}
                     {!isUsersLoading && usersError && (
                         <Typography color={'error'}>{usersError}</Typography>
                     )}

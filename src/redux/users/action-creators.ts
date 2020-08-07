@@ -1,17 +1,24 @@
 import {UserInterface} from '../../interfaces/user.interface';
-import {SET_USERS, SET_USERS_ERROR, TOGGLE_USERS_LOADING, UsersActionTypes} from './action-types';
+import {
+    SET_USERS,
+    SET_USERS_ERROR,
+    TOGGLE_USERS_LOADING,
+    UsersActionTypes,
+} from './action-types';
 
 export const setUsers = (users: UserInterface[]): UsersActionTypes => ({
     type: SET_USERS,
-    users
+    users,
 });
 
-export const toggleUsersLoading = (isUsersLoading: boolean): UsersActionTypes => ({
+export const toggleUsersLoading = (
+    isUsersLoading: boolean
+): UsersActionTypes => ({
     type: TOGGLE_USERS_LOADING,
-    isUsersLoading
+    isUsersLoading,
 });
 
 export const setUsersError = (usersError: string): UsersActionTypes => ({
     type: SET_USERS_ERROR,
-    usersError
-})
+    usersError,
+});

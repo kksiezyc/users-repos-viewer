@@ -14,9 +14,11 @@ export const fetchRepos = (
         dispatch(setReposError(''));
         dispatch(toggleReposLoading(true));
 
-        const response: AxiosResponse<RepoInterface[]> = await axios.get(reposUrl);
+        const response: AxiosResponse<RepoInterface[]> = await axios.get(
+            reposUrl
+        );
 
-        console.log('reponse', response)
+        console.log('reponse', response);
         dispatch(setRepos(response.data));
         dispatch(toggleReposLoading(false));
     } catch (e) {

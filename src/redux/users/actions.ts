@@ -29,7 +29,9 @@ export const fetchUsers = (
             dispatch(setUsers(response.data.items));
             dispatch(toggleUsersLoading(false));
         } else {
-            dispatch(setUsersError('No results. Please narrow your parameters.'));
+            dispatch(
+                setUsersError('No results. Please narrow your parameters.')
+            );
             dispatch(toggleUsersLoading(false));
         }
     } catch (e) {

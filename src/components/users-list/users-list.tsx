@@ -15,7 +15,7 @@ export const UsersList = ({
     fetchRepos: fetchReposAction,
     isReposLoading,
     reposError,
-    repos
+    repos,
 }: UsersListProps): ReactElement => {
     const [expandedUserId, setExpandedUserId] = useState<number>(0);
     const handleExpanded = useCallback(
@@ -36,9 +36,7 @@ export const UsersList = ({
                         <UserItem
                             repos={componentToUpdate ? repos : emptyRepos}
                             reposError={componentToUpdate ? reposError : ''}
-                            isReposLoading={
-                                componentToUpdate && isReposLoading
-                            }
+                            isReposLoading={componentToUpdate && isReposLoading}
                             key={user.id}
                             user={user}
                             isExpanded={componentToUpdate}

@@ -23,18 +23,22 @@ export const UserItem = memo(
                 </AccordionSummary>
                 <AccordionDetails>
                     {isReposLoading && <CircularProgress />}
-                    {!isReposLoading && !!repos?.length && repos.map(
-                        (repoItem: RepoInterface): ReactElement => {
-                            return (
-                                <div key={repoItem.id}>
-                                    {repoItem.branches_url}
-                                </div>
-                            );
-                        }
+                    {!isReposLoading &&
+                        !!repos?.length &&
+                        repos.map(
+                            (repoItem: RepoInterface): ReactElement => {
+                                return (
+                                    <div key={repoItem.id}>
+                                        {repoItem.branches_url}
+                                    </div>
+                                );
+                            }
+                        )}
+                    {!isReposLoading && !repos?.length && (
+                        <Typography>
+                            Selected user does not have any repositories.
+                        </Typography>
                     )}
-                    {!isReposLoading && !repos?.length && <Typography>
-                        Selected user does not have any repositories.
-                    </Typography>}
                 </AccordionDetails>
             </Accordion>
         );

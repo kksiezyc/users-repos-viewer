@@ -2,7 +2,7 @@ import {
     SET_REPOS,
     SET_REPOS_ERROR,
     TOGGLE_REPOS_LOADING,
-    ReposActionTypes
+    ReposActionTypes,
 } from './action-types';
 import {RepoInterface} from '../../interfaces/repo.interface';
 
@@ -15,7 +15,7 @@ interface ReposStateInterface {
 const initialState: ReposStateInterface = {
     repos: [],
     isReposLoading: false,
-    reposError: ''
+    reposError: '',
 };
 export default function usersReducer(
     state = initialState,
