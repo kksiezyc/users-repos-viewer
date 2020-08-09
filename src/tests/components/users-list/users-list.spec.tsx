@@ -10,7 +10,7 @@ const defaultProps: UsersListProps = {
     activeUserId: 0,
     setActiveUser: jest.fn,
     isUsersLoading: false,
-    usersError: ''
+    usersError: '',
 };
 
 describe('users-list', (): void => {

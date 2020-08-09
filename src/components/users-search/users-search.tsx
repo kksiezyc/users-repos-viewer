@@ -59,6 +59,7 @@ export const UsersSearch = ({
             <CardContent className={styles.cardContent}>
                 <div className={styles.searchBox}>
                     <TextField
+                        inputProps={{'data-testid': 'usersSearchInput'}}
                         value={searchValue}
                         onChange={handleValueChange}
                         onKeyUp={handleEnterPress}
@@ -67,6 +68,7 @@ export const UsersSearch = ({
                         variant={'outlined'}
                     />
                     <Button
+                        data-testid={'usersSearchButton'}
                         disabled={!searchValue || isUsersLoading}
                         onClick={searchRepos}
                         className={styles.searchButton}
