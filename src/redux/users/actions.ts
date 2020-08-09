@@ -42,7 +42,7 @@ export const fetchUsers = (
             dispatch(toggleUsersLoading(false));
         }
     } catch (e) {
-        dispatch(setUsersError('Something went wrong, try again'));
+        dispatch(setUsersError('Something went wrong, try again.'));
         dispatch(toggleUsersLoading(false));
     }
 };

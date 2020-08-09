@@ -40,8 +40,13 @@ export const fetchRepos = (
             );
             dispatch(toggleReposLoading(false));
         }
+        ajaxRequest = null;
     } catch (e) {
-        dispatch(setReposError('Something went wrong, try again'));
+        ajaxRequest = null;
+        if (e.message === Requests.REQUEST_CANCEL) {
+            return;
+        }
+        dispatch(setReposError('Something went wrong, try again.'));
         dispatch(toggleReposLoading(false));
     }
 };
