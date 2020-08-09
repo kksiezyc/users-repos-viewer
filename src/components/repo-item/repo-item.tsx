@@ -11,7 +11,7 @@ export const RepoItem = memo(
     ({repoItem}: RepoItemProps): ReactElement => {
         const repoClickHandler = useCallback((): void => {
             window.open(repoItem.svn_url);
-        }, []);
+        }, [repoItem.svn_url]);
 
         return (
             <Card className={styles.container}>
@@ -37,3 +37,4 @@ export const RepoItem = memo(
         );
     }
 );
+RepoItem.displayName = 'RepoItem';

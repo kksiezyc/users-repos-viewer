@@ -30,7 +30,7 @@ export const UserItem = memo(
             }
             onExpandHandler(user.id);
             fetchReposAction(user.repos_url);
-        }, [fetchReposAction, onExpandHandler, isExpanded]);
+        }, [fetchReposAction, onExpandHandler, isExpanded, user.id, user.repos_url]);
 
         return (
             <Accordion
@@ -54,6 +54,8 @@ export const UserItem = memo(
         );
     }
 );
+
+UserItem.displayName = 'UserItem';
 
 const mapDispatchToProps = (
     dispatch: ThunkDispatch<RootState, void, ReposActionTypes>

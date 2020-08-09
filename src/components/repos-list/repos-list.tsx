@@ -10,6 +10,7 @@ import {ReposActionTypes} from '../../redux/repos/action-types';
 import {bindActionCreators} from 'redux';
 import {fetchRepos} from '../../redux/repos/actions';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import {Errors} from '../../enums/errors.enum';
 
 export interface ReposListProps {
     repos: RepoInterface[];
@@ -27,7 +28,7 @@ export const ReposList = ({
 }: ReposListProps): ReactElement => {
     const fetchRepos = useCallback((): void => {
         fetchReposAction(reposUrl);
-    }, [reposUrl]);
+    }, [reposUrl, fetchReposAction]);
 
     return (
         <div className={styles.container}>
@@ -49,7 +50,7 @@ export const ReposList = ({
                     data-testid={'reposListError'}
                 >
                     <Typography>{reposError}</Typography>
-                    <RefreshIcon onClick={fetchRepos} />
+                    {reposError === Errors.SOMETHING_WENT_WRONG && <RefreshIcon onClick={fetchRepos} />}
                 </div>
             )}
             {isReposLoading && (
