@@ -47,7 +47,7 @@ export const UserItem = memo(
                         data-testid={'userItemAccordionDetails'}
                         className={styles.accordionDetails}
                     >
-                        <ReposList />
+                        <ReposList reposUrl={user.repos_url} />
                     </AccordionDetails>
                 )}
             </Accordion>

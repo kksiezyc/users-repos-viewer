@@ -1,7 +1,5 @@
 import {render} from '@testing-library/react';
 import React from 'react';
-import {UsersSearchProps} from '../../../components/users-search/users-search.interface';
-import {UsersSearch} from '../../../components/users-search/users-search';
 import {UsersList} from '../../../components/users-list/users-list';
 import {UsersListProps} from '../../../components/users-list/user-list.interface';
 
