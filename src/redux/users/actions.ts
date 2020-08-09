@@ -2,7 +2,12 @@ import {AppDispatch, RootState} from '../store';
 import {Action} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 import axios, {AxiosResponse} from 'axios';
-import {setUsers, setUsersError, toggleUsersLoading} from './action-creators';
+import {
+    setResultsQuery,
+    setUsers,
+    setUsersError,
+    toggleUsersLoading,
+} from './action-creators';
 import {UserInterface} from '../../interfaces/user.interface';
 import {apiConfig} from '../../config/api';
 import {ApiEndpointsEnum} from '../../enums/api-endpoints.enum';
@@ -15,6 +20,7 @@ export const fetchUsers = (
     try {
         dispatch(setUsersError(''));
         dispatch(toggleUsersLoading(true));
+        dispatch(setResultsQuery(''));
 
         const response: AxiosResponse<{
             total_count: number;
@@ -28,6 +34,7 @@ export const fetchUsers = (
         if (users?.length) {
             dispatch(setUsers(response.data.items));
             dispatch(toggleUsersLoading(false));
+            dispatch(setResultsQuery(searchValue));
         } else {
             dispatch(
                 setUsersError('No results. Please narrow your parameters.')

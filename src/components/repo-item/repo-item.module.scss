@@ -1,0 +1,14 @@
+@import 'src/styles/global';
+
+.container {
+    margin-top: normalize(20);
+}
+
+.cardTopContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stars {
+    display: flex;
+}

@@ -1,0 +1,15 @@
+@import 'src/styles/global';
+
+.container {
+    width: 100%;
+    min-height: normalize(100);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reposContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

@@ -1,11 +1,10 @@
 import {UserInterface} from '../../interfaces/user.interface';
-import {RepoInterface} from '../../interfaces/repo.interface';
+import {fetchRepos} from '../../redux/repos/actions';
+import {setActiveUser} from '../../redux/users/action-creators';
 
 export interface UserItemProps {
     user: UserInterface;
     isExpanded: boolean;
-    onExpand: (user: UserInterface) => void;
-    reposError: string;
-    isReposLoading: boolean;
-    repos: RepoInterface[];
+    fetchRepos: typeof fetchRepos;
+    onExpandHandler: typeof setActiveUser;
 }

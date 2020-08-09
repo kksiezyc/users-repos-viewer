@@ -1,5 +1,7 @@
 import {UserInterface} from '../../interfaces/user.interface';
 import {
+    SET_ACTIVE_USER,
+    SET_RESULTS_QUERY,
     SET_USERS,
     SET_USERS_ERROR,
     TOGGLE_USERS_LOADING,
@@ -21,4 +23,14 @@ export const toggleUsersLoading = (
 export const setUsersError = (usersError: string): UsersActionTypes => ({
     type: SET_USERS_ERROR,
     usersError,
+});
+
+export const setActiveUser = (activeUserId: number): UsersActionTypes => ({
+    type: SET_ACTIVE_USER,
+    activeUserId,
+});
+
+export const setResultsQuery = (resultsQuery: string): UsersActionTypes => ({
+    type: SET_RESULTS_QUERY,
+    resultsQuery,
 });

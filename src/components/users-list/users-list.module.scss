@@ -1,4 +1,9 @@
 .container {
     height: 100%;
-    overflow: scroll;
+    width: 100%;
+}
+
+.reposContainer {
+    display: flex;
+    flex-direction: column;
 }

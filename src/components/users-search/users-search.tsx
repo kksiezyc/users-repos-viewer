@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactElement, useState} from 'react';
+import React, {ChangeEvent, ReactElement, useCallback, useState} from 'react';
 import {
     Button,
     Card,
@@ -21,19 +21,23 @@ export const UsersSearch = ({
     fetchUsers: fetchUsersAction,
     isUsersLoading,
     usersError,
+    resultsQuery,
 }: UsersSearchProps): ReactElement => {
     const [searchValue, setSearchValue] = useState<string>('');
 
-    const handleValueChange = ({
-        target: {value},
-    }: ChangeEvent<HTMLInputElement>): void => setSearchValue(value);
+    const handleValueChange = useCallback(
+        ({target: {value}}: ChangeEvent<HTMLInputElement>): void => {
+            setSearchValue(value);
+        },
+        []
+    );
 
-    const searchRepos = async (): Promise<void> => {
+    const searchRepos = useCallback((): void => {
         fetchUsersAction(searchValue);
-    };
+    }, [fetchUsersAction, searchValue]);
 
     return (
-        <Card>
+        <Card className={styles.container}>
             <CardContent className={styles.cardContent}>
                 <div className={styles.searchBox}>
                     <TextField
@@ -53,6 +57,14 @@ export const UsersSearch = ({
                     >
                         Search
                     </Button>
+                    {resultsQuery && (
+                        <Typography
+                            color={'textSecondary'}
+                            className={styles.resultsQuery}
+                        >
+                            {`Showing results for: ${resultsQuery}`}
+                        </Typography>
+                    )}
                 </div>
                 <div className={styles.innerCardContent}>
                     {!isUsersLoading && !usersError && <UsersList />}
@@ -70,6 +82,7 @@ const mapStateToProps = ({users}: RootState) => ({
     users: users.users,
     isUsersLoading: users.isUsersLoading,
     usersError: users.usersError,
+    resultsQuery: users.resultsQuery,
 });
 const mapDispatchToProps = (
     dispatch: ThunkDispatch<RootState, void, UsersActionTypes>

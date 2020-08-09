@@ -1,11 +1,8 @@
 import {UserInterface} from '../../interfaces/user.interface';
-import {RepoInterface} from '../../interfaces/repo.interface';
-import {fetchRepos} from '../../redux/repos/actions';
+import {setActiveUser} from '../../redux/users/action-creators';
 
 export interface UsersListProps {
     users: UserInterface[];
-    fetchRepos: typeof fetchRepos;
-    repos: RepoInterface[];
-    isReposLoading: boolean;
-    reposError: string;
+    activeUserId: number;
+    setActiveUser: typeof setActiveUser;
 }

@@ -1,7 +1,8 @@
-@import '../styles/style';
+@import 'src/styles/global';
+
 .container {
-    margin-top: normalize(40);
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100vh;
+    padding: normalize(40);
 }

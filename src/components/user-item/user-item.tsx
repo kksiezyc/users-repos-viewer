@@ -1,46 +1,60 @@
-import React, {memo, ReactElement} from 'react';
+import React, {memo, useCallback} from 'react';
 import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
-    CircularProgress,
     Typography,
 } from '@material-ui/core';
-import {RepoInterface} from '../../interfaces/repo.interface';
 import {UserItemProps} from './user-item.interface';
+import {bindActionCreators} from 'redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {RootState} from '../../redux/store';
+import {ReposActionTypes} from '../../redux/repos/action-types';
+import {fetchRepos} from '../../redux/repos/actions';
+import {connect} from 'react-redux';
+import ReposList from '../repos-list/repos-list';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import styles from './user-item.module.scss';
 
 export const UserItem = memo(
-    ({user, isExpanded, onExpand, isReposLoading, repos}: UserItemProps) => {
+    ({
+        user,
+        isExpanded,
+        fetchRepos: fetchReposAction,
+        onExpandHandler,
+    }: UserItemProps) => {
+        const expandUserHandler = useCallback((): void => {
+            if (isExpanded) {
+                onExpandHandler(0);
+                return;
+            }
+            onExpandHandler(user.id);
+            fetchReposAction(user.repos_url);
+        }, [fetchReposAction, onExpandHandler, isExpanded]);
+
         return (
             <Accordion
-                key={user.id}
-                square
+                TransitionProps={{unmountOnExit: true}}
                 expanded={isExpanded}
-                onChange={(): void => onExpand(user)}
+                onChange={expandUserHandler}
             >
-                <AccordionSummary>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>{user.login}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                    {isReposLoading && <CircularProgress />}
-                    {!isReposLoading &&
-                        !!repos?.length &&
-                        repos.map(
-                            (repoItem: RepoInterface): ReactElement => {
-                                return (
-                                    <div key={repoItem.id}>
-                                        {repoItem.branches_url}
-                                    </div>
-                                );
-                            }
-                        )}
-                    {!isReposLoading && !repos?.length && (
-                        <Typography>
-                            Selected user does not have any repositories.
-                        </Typography>
-                    )}
-                </AccordionDetails>
+                {isExpanded && (
+                    <AccordionDetails className={styles.accordionDetails}>
+                        <ReposList />
+                    </AccordionDetails>
+                )}
             </Accordion>
         );
     }
 );
+
+const mapDispatchToProps = (
+    dispatch: ThunkDispatch<RootState, void, ReposActionTypes>
+) => ({
+    ...bindActionCreators({fetchRepos}, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(UserItem);

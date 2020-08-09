@@ -5,5 +5,6 @@ export interface UsersSearchProps {
     users: UserInterface[];
     isUsersLoading: boolean;
     usersError: string;
+    resultsQuery: string;
     fetchUsers: typeof fetchUsers;
 }

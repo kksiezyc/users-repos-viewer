@@ -1,9 +1,17 @@
 @import 'src/styles/global';
-$card-content-height: normalize(400);
-$card-searchbox-height: normalize(120);
+$card-content-width: normalize(300);
+$card-searchbox-height: normalize(160);
+
+.container {
+    padding: normalize(20);
+    max-width: normalize(800);
+    width: 100%;
+}
+
 .cardContent {
-    height: $card-content-height;
-    width: $card-content-height;
+    height: 100%;
+    min-width: $card-content-width;
+    padding-bottom: 0 !important;
 }
 
 .searchBox {
@@ -17,10 +25,11 @@ $card-searchbox-height: normalize(120);
     align-items: center;
     justify-content: center;
     height: calc(100% - #{$card-searchbox-height});
+    overflow-y: scroll;
 }
 
-.searchResults {
-    overflow: scroll;
+.resultsQuery {
+    padding-top: normalize(12);
 }
 
 .searchButton {

@@ -1,4 +1,6 @@
 import {
+    SET_ACTIVE_USER,
+    SET_RESULTS_QUERY,
     SET_USERS,
     SET_USERS_ERROR,
     TOGGLE_USERS_LOADING,
@@ -10,12 +12,16 @@ interface UsersStateInterface {
     users: UserInterface[];
     isUsersLoading: boolean;
     usersError: string;
+    activeUserId: number;
+    resultsQuery: string;
 }
 
 const initialState: UsersStateInterface = {
     users: [],
     isUsersLoading: false,
     usersError: '',
+    activeUserId: 0,
+    resultsQuery: '',
 };
 export default function usersReducer(
     state = initialState,
@@ -38,6 +44,18 @@ export default function usersReducer(
             return {
                 ...state,
                 usersError: action.usersError,
+            };
+        }
+        case SET_ACTIVE_USER: {
+            return {
+                ...state,
+                activeUserId: action.activeUserId,
+            };
+        }
+        case SET_RESULTS_QUERY: {
+            return {
+                ...state,
+                resultsQuery: action.resultsQuery,
             };
         }
         default:
