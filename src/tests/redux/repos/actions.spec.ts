@@ -37,6 +37,7 @@ describe('repos actions', (): void => {
         ];
         axios.CancelToken.source = jest.fn().mockImplementation(() => ({
             token: 'some value',
+            cancel: jest.fn()
         }));
         axios.get = jest
             .fn()
@@ -64,6 +65,7 @@ describe('repos actions', (): void => {
         ];
         axios.CancelToken.source = jest.fn().mockImplementation(() => ({
             token: 'some value',
+            cancel: jest.fn()
         }));
         axios.get = jest
             .fn()
@@ -90,6 +92,7 @@ describe('repos actions', (): void => {
         ];
         axios.CancelToken.source = jest.fn().mockImplementation(() => ({
             token: 'some value',
+            cancel: jest.fn()
         }));
         axios.get = jest
             .fn()
@@ -109,6 +112,7 @@ describe('repos actions', (): void => {
         ];
         axios.CancelToken.source = jest.fn().mockImplementation(() => ({
             token: 'some value',
+            cancel: jest.fn()
         }));
         axios.get = jest
             .fn()

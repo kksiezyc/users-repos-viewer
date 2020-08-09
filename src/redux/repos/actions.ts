@@ -6,7 +6,7 @@ import {setRepos, setReposError, toggleReposLoading} from './action-creators';
 import {RepoInterface} from '../../interfaces/repo.interface';
 import {Requests} from '../../enums/requests.enum';
 
-let ajaxRequest!: CancelTokenSource | null;
+let ajaxRequest: CancelTokenSource[] = [];
 
 export const fetchRepos = (
     reposUrl: string
@@ -14,10 +14,14 @@ export const fetchRepos = (
     dispatch: AppDispatch
 ): Promise<void> => {
     try {
-        if (ajaxRequest) {
-            ajaxRequest.cancel(Requests.REQUEST_CANCEL);
+        if (ajaxRequest.length) {
+            ajaxRequest.forEach((requestToken: CancelTokenSource): void => {
+                requestToken.cancel(Requests.REQUEST_CANCEL);
+            })
+            ajaxRequest = [];
         }
-        ajaxRequest = axios.CancelToken.source();
+        const currentCancelToken = axios.CancelToken.source();
+        ajaxRequest.push(currentCancelToken);
 
         dispatch(setReposError(''));
         dispatch(toggleReposLoading(true));
@@ -25,7 +29,7 @@ export const fetchRepos = (
         const response: AxiosResponse<RepoInterface[]> = await axios.get(
             reposUrl,
             {
-                cancelToken: ajaxRequest.token,
+                cancelToken: currentCancelToken.token,
             }
         );
 
@@ -40,9 +44,7 @@ export const fetchRepos = (
             );
             dispatch(toggleReposLoading(false));
         }
-        ajaxRequest = null;
     } catch (e) {
-        ajaxRequest = null;
         if (e.message === Requests.REQUEST_CANCEL) {
             return;
         }
