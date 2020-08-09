@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactElement, useCallback, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, ReactElement, useCallback, useState} from 'react';
 import {
     Button,
     Card,
@@ -25,11 +25,17 @@ export const UsersSearch = ({
 }: UsersSearchProps): ReactElement => {
     const [searchValue, setSearchValue] = useState<string>('');
 
+    const handleEnterPress = useCallback(({key}: KeyboardEvent<HTMLDivElement>): void => {
+        if (key === 'Enter') {
+            fetchUsersAction(searchValue);
+        }
+    }, [searchValue, fetchUsersAction]);
+
     const handleValueChange = useCallback(
         ({target: {value}}: ChangeEvent<HTMLInputElement>): void => {
             setSearchValue(value);
         },
-        []
+        [setSearchValue]
     );
 
     const searchRepos = useCallback((): void => {
@@ -43,6 +49,7 @@ export const UsersSearch = ({
                     <TextField
                         value={searchValue}
                         onChange={handleValueChange}
+                        onKeyUp={handleEnterPress}
                         placeholder={'Enter username'}
                         id={'outlined-basic'}
                         label={'Enter username'}
