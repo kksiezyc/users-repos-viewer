@@ -43,7 +43,10 @@ export const UserItem = memo(
                     <Typography>{user.login}</Typography>
                 </AccordionSummary>
                 {isExpanded && (
-                    <AccordionDetails className={styles.accordionDetails}>
+                    <AccordionDetails
+                        data-testid={'userItemAccordionDetails'}
+                        className={styles.accordionDetails}
+                    >
                         <ReposList />
                     </AccordionDetails>
                 )}
