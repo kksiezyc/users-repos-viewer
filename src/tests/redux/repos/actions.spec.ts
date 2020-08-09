@@ -9,6 +9,7 @@ import {
 import {RepoInterface} from '../../../interfaces/repo.interface';
 import {fetchRepos} from '../../../redux/repos/actions';
 import {Requests} from '../../../enums/requests.enum';
+import {Errors} from '../../../enums/errors.enum';
 jest.mock('axios');
 
 describe('repos actions', (): void => {
@@ -59,7 +60,7 @@ describe('repos actions', (): void => {
             {type: TOGGLE_REPOS_LOADING, isReposLoading: true},
             {
                 type: SET_REPOS_ERROR,
-                reposError: 'Selected users does not have any repositories.',
+                reposError: Errors.NO_REPOS,
             },
             {type: TOGGLE_REPOS_LOADING, isReposLoading: false},
         ];
@@ -86,7 +87,7 @@ describe('repos actions', (): void => {
             {type: TOGGLE_REPOS_LOADING, isReposLoading: true},
             {
                 type: SET_REPOS_ERROR,
-                reposError: 'Something went wrong, try again.',
+                reposError: Errors.SOMETHING_WENT_WRONG,
             },
             {type: TOGGLE_REPOS_LOADING, isReposLoading: false},
         ];

@@ -11,6 +11,7 @@ import {
 import {UserInterface} from '../../interfaces/user.interface';
 import {apiConfig} from '../../config/api';
 import {ApiEndpointsEnum} from '../../enums/api-endpoints.enum';
+import {Errors} from '../../enums/errors.enum';
 
 export const fetchUsers = (
     searchValue: string
@@ -37,12 +38,12 @@ export const fetchUsers = (
             dispatch(setResultsQuery(searchValue));
         } else {
             dispatch(
-                setUsersError('No results. Please narrow your parameters.')
+                setUsersError(Errors.NO_RESULTS)
             );
             dispatch(toggleUsersLoading(false));
         }
     } catch (e) {
-        dispatch(setUsersError('Something went wrong, try again.'));
+        dispatch(setUsersError(Errors.SOMETHING_WENT_WRONG));
         dispatch(toggleUsersLoading(false));
     }
 };

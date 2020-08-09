@@ -5,6 +5,7 @@ import axios, {AxiosResponse, CancelTokenSource} from 'axios';
 import {setRepos, setReposError, toggleReposLoading} from './action-creators';
 import {RepoInterface} from '../../interfaces/repo.interface';
 import {Requests} from '../../enums/requests.enum';
+import {Errors} from '../../enums/errors.enum';
 
 let ajaxRequest: CancelTokenSource[] = [];
 
@@ -40,7 +41,7 @@ export const fetchRepos = (
             dispatch(toggleReposLoading(false));
         } else {
             dispatch(
-                setReposError('Selected users does not have any repositories.')
+                setReposError(Errors.NO_REPOS)
             );
             dispatch(toggleReposLoading(false));
         }
@@ -48,7 +49,7 @@ export const fetchRepos = (
         if (e.message === Requests.REQUEST_CANCEL) {
             return;
         }
-        dispatch(setReposError('Something went wrong, try again.'));
+        dispatch(setReposError(Errors.SOMETHING_WENT_WRONG));
         dispatch(toggleReposLoading(false));
     }
 };

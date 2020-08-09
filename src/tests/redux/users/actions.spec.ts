@@ -9,6 +9,7 @@ import {UserInterface} from '../../../interfaces/user.interface';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import {fetchUsers} from '../../../redux/users/actions';
+import {Errors} from '../../../enums/errors.enum';
 
 describe('users-actions', (): void => {
     const middlewares = [thunk];
@@ -59,7 +60,7 @@ describe('users-actions', (): void => {
             {type: SET_RESULTS_QUERY, resultsQuery: ''},
             {
                 type: SET_USERS_ERROR,
-                usersError: 'No results. Please narrow your parameters.',
+                usersError: Errors.NO_RESULTS,
             },
             {type: TOGGLE_USERS_LOADING, isUsersLoading: false},
         ];
@@ -84,7 +85,7 @@ describe('users-actions', (): void => {
             {type: SET_RESULTS_QUERY, resultsQuery: ''},
             {
                 type: SET_USERS_ERROR,
-                usersError: 'Something went wrong, try again.',
+                usersError: Errors.SOMETHING_WENT_WRONG,
             },
             {type: TOGGLE_USERS_LOADING, isUsersLoading: false},
         ];
