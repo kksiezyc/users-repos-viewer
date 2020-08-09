@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import styles from './app.module.scss';
-import UsersSearch from '../components/users-search/users-search';
+import UsersSearch from '../users-search/users-search';
 
 export const App = (): ReactElement => (
     <div className={styles.container}>
