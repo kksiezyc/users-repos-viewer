@@ -5,4 +5,6 @@ export interface UsersListProps {
     users: UserInterface[];
     activeUserId: number;
     setActiveUser: typeof setActiveUser;
+    isUsersLoading: boolean;
+    usersError: string;
 }

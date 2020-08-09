@@ -1,9 +1,11 @@
 .container {
-    height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.reposContainer {
+.usersContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }

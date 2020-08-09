@@ -12,9 +12,9 @@ import {RootState} from '../../redux/store';
 import {ReposActionTypes} from '../../redux/repos/action-types';
 import {fetchRepos} from '../../redux/repos/actions';
 import {connect} from 'react-redux';
-import ReposList from '../repos-list/repos-list';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './user-item.module.scss';
+import ReposList from '../repos-list/repos-list';
 
 export const UserItem = memo(
     ({
@@ -34,6 +34,7 @@ export const UserItem = memo(
 
         return (
             <Accordion
+                data-testid={'userItem'}
                 TransitionProps={{unmountOnExit: true}}
                 expanded={isExpanded}
                 onChange={expandUserHandler}

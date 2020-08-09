@@ -21,9 +21,6 @@ $card-searchbox-height: normalize(160);
 }
 
 .innerCardContent {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: calc(100% - #{$card-searchbox-height});
     overflow-y: scroll;
 }

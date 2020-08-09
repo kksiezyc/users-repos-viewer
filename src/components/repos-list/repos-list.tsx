@@ -3,9 +3,6 @@ import {CircularProgress, Typography} from '@material-ui/core';
 import {RepoInterface} from '../../interfaces/repo.interface';
 import {RepoItem} from '../repo-item/repo-item';
 import {RootState} from '../../redux/store';
-import {ThunkDispatch} from 'redux-thunk';
-import {ReposActionTypes} from '../../redux/repos/action-types';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import styles from './repos-list.module.scss';
 
@@ -41,10 +38,4 @@ const mapStateToProps = ({repos}: RootState) => ({
     repos: repos.repos,
 });
 
-const mapDispatchToProps = (
-    dispatch: ThunkDispatch<RootState, void, ReposActionTypes>
-) => ({
-    ...bindActionCreators({}, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReposList);
+export default connect(mapStateToProps)(ReposList);

@@ -20,9 +20,9 @@ import {bindActionCreators} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {RootState} from '../../redux/store';
 import {fetchUsers} from '../../redux/users/actions';
-import {UsersList} from '../users-list/users-list';
 import {UsersSearchProps} from './users-search.interface';
 import {setActiveUser} from '../../redux/users/action-creators';
+import {UsersList} from '../users-list/users-list';
 
 export const UsersSearch = ({
     users,
@@ -87,17 +87,13 @@ export const UsersSearch = ({
                     )}
                 </div>
                 <div className={styles.innerCardContent}>
-                    {!isUsersLoading && !usersError && (
-                        <UsersList
-                            users={users}
-                            setActiveUser={setActiveUserAction}
-                            activeUserId={activeUserId}
-                        />
-                    )}
-                    {!isUsersLoading && usersError && (
-                        <Typography data-testid={'usersSearchError'} color={'error'}>{usersError}</Typography>
-                    )}
-                    {isUsersLoading && <CircularProgress data-testid={'usersSearchLoader'} />}
+                    <UsersList
+                        users={users}
+                        activeUserId={activeUserId}
+                        setActiveUser={setActiveUserAction}
+                        usersError={usersError}
+                        isUsersLoading={isUsersLoading}
+                    />
                 </div>
             </CardContent>
         </Card>
