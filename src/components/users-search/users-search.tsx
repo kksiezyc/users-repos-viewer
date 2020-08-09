@@ -1,4 +1,10 @@
-import React, {ChangeEvent, KeyboardEvent, ReactElement, useCallback, useState} from 'react';
+import React, {
+    ChangeEvent,
+    KeyboardEvent,
+    ReactElement,
+    useCallback,
+    useState,
+} from 'react';
 import {
     Button,
     Card,
@@ -14,10 +20,14 @@ import {bindActionCreators} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {RootState} from '../../redux/store';
 import {fetchUsers} from '../../redux/users/actions';
-import UsersList from '../users-list/users-list';
+import {UsersList} from '../users-list/users-list';
 import {UsersSearchProps} from './users-search.interface';
+import {setActiveUser} from '../../redux/users/action-creators';
 
 export const UsersSearch = ({
+    users,
+    activeUserId,
+    setActiveUser: setActiveUserAction,
     fetchUsers: fetchUsersAction,
     isUsersLoading,
     usersError,
@@ -25,11 +35,14 @@ export const UsersSearch = ({
 }: UsersSearchProps): ReactElement => {
     const [searchValue, setSearchValue] = useState<string>('');
 
-    const handleEnterPress = useCallback(({key}: KeyboardEvent<HTMLDivElement>): void => {
-        if (key === 'Enter') {
-            fetchUsersAction(searchValue);
-        }
-    }, [searchValue, fetchUsersAction]);
+    const handleEnterPress = useCallback(
+        ({key}: KeyboardEvent<HTMLDivElement>): void => {
+            if (key === 'Enter') {
+                fetchUsersAction(searchValue);
+            }
+        },
+        [searchValue, fetchUsersAction]
+    );
 
     const handleValueChange = useCallback(
         ({target: {value}}: ChangeEvent<HTMLInputElement>): void => {
@@ -51,7 +64,6 @@ export const UsersSearch = ({
                         onChange={handleValueChange}
                         onKeyUp={handleEnterPress}
                         placeholder={'Enter username'}
-                        id={'outlined-basic'}
                         label={'Enter username'}
                         variant={'outlined'}
                     />
@@ -66,6 +78,7 @@ export const UsersSearch = ({
                     </Button>
                     {resultsQuery && (
                         <Typography
+                            data-testid={'usersSearchResultsQuery'}
                             color={'textSecondary'}
                             className={styles.resultsQuery}
                         >
@@ -74,11 +87,17 @@ export const UsersSearch = ({
                     )}
                 </div>
                 <div className={styles.innerCardContent}>
-                    {!isUsersLoading && !usersError && <UsersList />}
-                    {!isUsersLoading && usersError && (
-                        <Typography color={'error'}>{usersError}</Typography>
+                    {!isUsersLoading && !usersError && (
+                        <UsersList
+                            users={users}
+                            setActiveUser={setActiveUserAction}
+                            activeUserId={activeUserId}
+                        />
                     )}
-                    {isUsersLoading && <CircularProgress />}
+                    {!isUsersLoading && usersError && (
+                        <Typography data-testid={'usersSearchError'} color={'error'}>{usersError}</Typography>
+                    )}
+                    {isUsersLoading && <CircularProgress data-testid={'usersSearchLoader'} />}
                 </div>
             </CardContent>
         </Card>
@@ -87,6 +106,7 @@ export const UsersSearch = ({
 
 const mapStateToProps = ({users}: RootState) => ({
     users: users.users,
+    activeUserId: users.activeUserId,
     isUsersLoading: users.isUsersLoading,
     usersError: users.usersError,
     resultsQuery: users.resultsQuery,
@@ -94,7 +114,7 @@ const mapStateToProps = ({users}: RootState) => ({
 const mapDispatchToProps = (
     dispatch: ThunkDispatch<RootState, void, UsersActionTypes>
 ) => ({
-    ...bindActionCreators({fetchUsers}, dispatch),
+    ...bindActionCreators({fetchUsers, setActiveUser}, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersSearch);
