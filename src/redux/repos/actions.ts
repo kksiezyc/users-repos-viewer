@@ -29,8 +29,17 @@ export const fetchRepos = (
             }
         );
 
-        dispatch(setRepos(response.data));
-        dispatch(toggleReposLoading(false));
+        const repos = response.data;
+
+        if (repos?.length) {
+            dispatch(setRepos(response.data));
+            dispatch(toggleReposLoading(false));
+        } else {
+            dispatch(
+                setReposError('Selected users does not have any repositories.')
+            );
+            dispatch(toggleReposLoading(false));
+        }
     } catch (e) {
         dispatch(setReposError('Something went wrong, try again'));
         dispatch(toggleReposLoading(false));
