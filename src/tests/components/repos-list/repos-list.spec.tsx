@@ -1,13 +1,16 @@
 import {render} from '@testing-library/react';
 import React from 'react';
-import {ReposList, ReposListProps} from '../../../components/repos-list/repos-list';
+import {
+    ReposList,
+    ReposListProps,
+} from '../../../components/repos-list/repos-list';
 
 const defaultProps: ReposListProps = {
     reposError: '',
     isReposLoading: false,
     repos: [],
     reposUrl: '',
-    fetchRepos: jest.fn()
+    fetchRepos: jest.fn(),
 };
 
 describe('repos-list', (): void => {

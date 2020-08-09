@@ -16,7 +16,7 @@ interface UsersStateInterface {
     resultsQuery: string;
 }
 
-const initialState: UsersStateInterface = {
+export const initialUsersState: UsersStateInterface = {
     users: [],
     isUsersLoading: false,
     usersError: '',
@@ -24,7 +24,7 @@ const initialState: UsersStateInterface = {
     resultsQuery: '',
 };
 export default function usersReducer(
-    state = initialState,
+    state = initialUsersState,
     action: UsersActionTypes
 ): UsersStateInterface {
     switch (action.type) {

@@ -12,13 +12,13 @@ interface ReposStateInterface {
     reposError: string;
 }
 
-const initialState: ReposStateInterface = {
+export const initialReposState: ReposStateInterface = {
     repos: [],
     isReposLoading: false,
     reposError: '',
 };
 export default function usersReducer(
-    state = initialState,
+    state = initialReposState,
     action: ReposActionTypes
 ): ReposStateInterface {
     switch (action.type) {

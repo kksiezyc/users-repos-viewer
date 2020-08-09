@@ -23,9 +23,8 @@ export const ReposList = ({
     isReposLoading,
     reposError,
     fetchRepos: fetchReposAction,
-    reposUrl
+    reposUrl,
 }: ReposListProps): ReactElement => {
-
     const fetchRepos = useCallback((): void => {
         fetchReposAction(reposUrl);
     }, [reposUrl]);
@@ -33,7 +32,10 @@ export const ReposList = ({
     return (
         <div className={styles.container}>
             {!isReposLoading && !reposError && (
-                <div data-testid={'reposList'} className={styles.reposContainer}>
+                <div
+                    data-testid={'reposList'}
+                    className={styles.reposContainer}
+                >
                     {repos.map(
                         (repoItem: RepoInterface): ReactElement => (
                             <RepoItem key={repoItem.id} repoItem={repoItem} />
@@ -42,22 +44,25 @@ export const ReposList = ({
                 </div>
             )}
             {!isReposLoading && reposError && (
-                <div className={styles.errorContainer} data-testid={'reposListError'}>
-                    <Typography>
-                        {reposError}
-                    </Typography>
-                    <RefreshIcon onClick={fetchRepos}/>
+                <div
+                    className={styles.errorContainer}
+                    data-testid={'reposListError'}
+                >
+                    <Typography>{reposError}</Typography>
+                    <RefreshIcon onClick={fetchRepos} />
                 </div>
             )}
-            {isReposLoading && <CircularProgress data-testid={'reposListLoader'}/>}
+            {isReposLoading && (
+                <CircularProgress data-testid={'reposListLoader'} />
+            )}
         </div>
-    )
-}
+    );
+};
 
 const mapStateToProps = ({repos}: RootState) => ({
     isReposLoading: repos.isReposLoading,
     repos: repos.repos,
-    reposError: repos.reposError
+    reposError: repos.reposError,
 });
 
 const mapDispatchToProps = (
