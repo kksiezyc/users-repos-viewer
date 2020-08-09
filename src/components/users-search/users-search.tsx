@@ -9,7 +9,6 @@ import {
     Button,
     Card,
     CardContent,
-    CircularProgress,
     TextField,
     Typography,
 } from '@material-ui/core';

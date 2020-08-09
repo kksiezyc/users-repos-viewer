@@ -12,9 +12,9 @@ export const UsersList = ({
     isUsersLoading,
     usersError,
 }: UsersListProps): ReactElement => (
-    <div data-testid={'usersList'} className={styles.container}>
+    <div className={styles.container}>
         {!isUsersLoading && !usersError && (
-            <div className={styles.usersContainer}>
+            <div data-testid={'usersList'} className={styles.usersContainer}>
                 {users.map(
                     (user: UserInterface): ReactElement => (
                         <UserItem
