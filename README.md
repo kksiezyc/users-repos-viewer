@@ -1,6 +1,7 @@
 ## Available Scripts
 
 ### `run project`
+- npm install
 - npm run start
 
 ### `build project`
